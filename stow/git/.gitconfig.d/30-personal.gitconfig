@@ -1,0 +1,14 @@
+# 30-personal.gitconfig — personal identity and preferences
+# Loaded after 10-base.gitconfig via the generated ~/.gitconfig.
+
+[user]
+    name  = Your Name
+    email = you@personal.example.com
+
+# Optional: sign commits with a personal GPG/SSH key
+# [commit]
+#     gpgsign = true
+# [gpg]
+#     format = ssh
+# [gpg "ssh"]
+#     allowedSignersFile = ~/.ssh/allowed_signers
