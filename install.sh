@@ -25,11 +25,21 @@ DOTFILES_COMMON_DIR="${DOTFILES_COMMON_DIR:-$HOME/.dotfiles/common}"
 # URL of the public common dotfiles repo — update this to your actual repo URL.
 DOTFILES_COMMON_REPO="${DOTFILES_COMMON_REPO:-https://github.com/bmfurtado/dotfiles-common.git}"
 
-# ── Bootstrap: ensure common repo is present ─────────────────────────────────
+# ── Self-update ───────────────────────────────────────────────────────────────
+
+if git -C "$DOTFILES_PERSONAL_DIR" remote get-url origin &>/dev/null; then
+  echo "==> Updating personal dotfiles..."
+  git -C "$DOTFILES_PERSONAL_DIR" pull --ff-only
+fi
+
+# ── Bootstrap: ensure common repo is present and up to date ──────────────────
 
 if [[ ! -d "$DOTFILES_COMMON_DIR" ]]; then
   echo "==> Cloning common dotfiles to $DOTFILES_COMMON_DIR ..."
   git clone "$DOTFILES_COMMON_REPO" "$DOTFILES_COMMON_DIR"
+elif git -C "$DOTFILES_COMMON_DIR" remote get-url origin &>/dev/null; then
+  echo "==> Updating common dotfiles..."
+  git -C "$DOTFILES_COMMON_DIR" pull --ff-only
 fi
 
 # ── Load common framework ─────────────────────────────────────────────────────
